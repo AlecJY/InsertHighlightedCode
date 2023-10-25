@@ -23,12 +23,21 @@
 
 <body class="ms-font-m ms-welcome ms-Fabric">
     <header class="ms-welcome__header ms-bgColor-neutralLighter">
-        <h1 class="ms-font-su">Insert highlighted code to Word</h1>
+        <p>Insert highlighted codes into Word</p>
     </header>
     <section id="sideload-msg" class="ms-welcome__main">
         <h2 class="ms-font-xl">Please <a target="_blank" href="https://learn.microsoft.com/office/dev/add-ins/testing/test-debug-office-add-ins#sideload-an-office-add-in-for-testing">sideload</a> your add-in to see app body.</h2>
     </section>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
+        <div>
+            <label for="lang">Language: </label>
+            <select id="lang" name="lang">
+                <option value="auto">Auto</option>
+                <option value="html">HTML</option>
+                <option value="javascript">JavaScript</option>
+                <option value="xml">XML</option>
+            </select>
+        </div>
         <div>
             <textarea id="code" name="code" rows="12" cols="40"></textarea>
         </div>

@@ -7,9 +7,12 @@
 
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
+import xml from 'highlight.js/lib/languages/xml';
 import computedStyleToInlineStyle from 'computed-style-to-inline-style';
 
+hljs.registerLanguage('html', xml);
 hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('xml', xml);
 
 Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
@@ -34,10 +37,15 @@ async function insertCode() {
     const doc = context.document;
     const originalRange = doc.getSelection();
     const code = document.getElementById("code");
-    const highlightedCode = hljs.highlight(
-      code.value,
-      { language: 'javascript' }
-    );
+    const lang = document.getElementById("lang");
+    const highlightedCode = lang.value === "auto"?
+      hljs.highlightAuto(
+        code.value
+      ):
+      hljs.highlight(
+        code.value,
+        { language: lang.value }
+      );
 
     const result = document.getElementById("result");
     result.innerHTML = highlightedCode.value;
