@@ -6,11 +6,13 @@
 /* global document, Office, Word */
 
 import hljs from 'highlight.js/lib/core';
+import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
 import xml from 'highlight.js/lib/languages/xml';
 import computedStyleToInlineStyle from 'computed-style-to-inline-style';
 
 hljs.registerLanguage('html', xml);
+hljs.registerLanguage('java', java);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('xml', xml);
 
