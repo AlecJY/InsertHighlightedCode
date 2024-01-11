@@ -40,6 +40,7 @@ async function insertCode() {
     const originalRange = doc.getSelection();
     const code = document.getElementById("code");
     const lang = document.getElementById("lang");
+    const inTable = document.getElementById("in-table");
     const highlightedCode = lang.value === "auto"?
       hljs.highlightAuto(
         code.value
@@ -56,7 +57,14 @@ async function insertCode() {
     });
 
     // It seems that Word doesn't support 'white-space' css
-    originalRange.insertHtml(result.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br>'), Word.InsertLocation.end);
+    const content = result.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+    if (inTable.checked) {
+      const border = 'style="border: 1px solid black;border-collapse: collapse;"';
+      originalRange.insertHtml(`<table ${border}><tr ${border}><td ${border}>${content}</td></tr></table><br/>`, Word.InsertLocation.end);
+    } else {
+      originalRange.insertHtml(content, Word.InsertLocation.end);
+    }
 
     await context.sync();
   })
