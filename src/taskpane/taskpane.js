@@ -8,6 +8,7 @@
 import hljs from 'highlight.js/lib/core';
 import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
+import kotlin from 'highlight.js/lib/languages/kotlin';
 import python from 'highlight.js/lib/languages/python';
 import xml from 'highlight.js/lib/languages/xml';
 import computedStyleToInlineStyle from 'computed-style-to-inline-style';
@@ -15,6 +16,7 @@ import computedStyleToInlineStyle from 'computed-style-to-inline-style';
 hljs.registerLanguage('html', xml);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('kotlin', kotlin)
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('xml', xml);
 
@@ -22,9 +24,34 @@ Office.onReady((info) => {
   if (info.host === Office.HostType.Word) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
+    getThemes();
     document.getElementById("insert-code").onclick = () => tryCatch(insertCode)
   }
 });
+
+async function getThemes() {
+  const themes = document.getElementsByName("theme-css");
+  let currentTheme = themes[0];
+  let themeList = [];
+
+  const themeOption = document.getElementById("theme");
+  themes.forEach((theme) => {
+    const option = document.createElement("option");
+    option.value = theme.title;
+    option.innerHTML = theme.title;
+    themeOption.appendChild(option);
+    themeList[theme.title] = theme;
+  })
+
+  themeOption.addEventListener("change", (event) => {
+    const theme = themeList[event.target.value];
+    if (theme !== currentTheme) {
+      theme.removeAttribute("disabled");
+      currentTheme.setAttribute("disabled", "disabled");
+      currentTheme = theme;
+    }
+  })
+}
 
 /** Default helper for invoking an action and handling errors. */
 async function tryCatch(callback) {
