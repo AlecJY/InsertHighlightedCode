@@ -6,6 +6,7 @@
 /* global document, Office, Word */
 
 import hljs from 'highlight.js/lib/core';
+import go from 'highlight.js/lib/languages/go';
 import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
 import kotlin from 'highlight.js/lib/languages/kotlin';
@@ -14,6 +15,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import computedStyleToInlineStyle from 'computed-style-to-inline-style';
 
 hljs.registerLanguage('html', xml);
+hljs.registerLanguage('go', go);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('kotlin', kotlin)
