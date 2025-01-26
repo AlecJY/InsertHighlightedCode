@@ -72,6 +72,7 @@ async function insertCode() {
     const code = document.getElementById("code");
     const lang = document.getElementById("lang");
     const inTable = document.getElementById("in-table");
+    const themeOption = document.getElementById("theme");
     const highlightedCode = lang.value === "auto"?
       hljs.highlightAuto(
         code.value
@@ -91,8 +92,12 @@ async function insertCode() {
     const content = result.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
     if (inTable.checked) {
-      const border = 'style="border: 1px solid black;border-collapse: collapse;"';
-      originalRange.insertHtml(`<table ${border}><tr ${border}><td ${border}>${content}</td></tr></table><br/>`, Word.InsertLocation.end);
+      let background = ''
+      if (themeOption.value.endsWith('Dark')) {
+        background = 'background-color: black;'
+      }
+      const border = `style="border: 1px solid black;border-collapse: collapse;${background}"`;
+      originalRange.insertHtml(`<table class="hljs" ${border}><tr ${border}><td ${border}>${content}</td></tr></table><br/>`, Word.InsertLocation.end);
     } else {
       originalRange.insertHtml(content, Word.InsertLocation.end);
     }
